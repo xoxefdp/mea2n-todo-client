@@ -15,11 +15,10 @@ import { TasksComponent } from './components/tasks/tasks.component';
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule,
-    NgbModule.forRoot()
+    HttpModule
   ],
   providers: [],
-  bootstrap: [AppComponent, TasksComponent]
+  bootstrap: [AppComponent]
 })
 
 export class AppModule { }

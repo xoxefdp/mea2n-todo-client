@@ -2,48 +2,50 @@ import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
 
+import { environment } from '../../../environments/environment';
+
 @Injectable()
-export class TaskService {
-  endpoint = 'http://localhost:3000/api';
+export class UserService {
+  endpoint = environment.endpoint;
 
   constructor(private http: Http) {
-    console.log('Task Service Initialized...');
+    console.log('User Service Initialized...');
   }
 
-  getTasks() {
+  getUsers() {
     return this.http.get(
-      this.endpoint + '/tasks')
+      this.endpoint + '/users')
     .map(res => res.json());
   }
 
-  getTask(id: number) {
+  getUser(id: number) {
     return this.http.get(
-      this.endpoint + '/task/' + id)
+      this.endpoint + '/user/' + id)
     .map(res => res.json());
   }
 
-  addTask(newTask) {
+  addUser(newUser) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return this.http.post(
-      this.endpoint + '/task',
-      JSON.stringify(newTask),
+      this.endpoint + '/user',
+      JSON.stringify(newUser),
       {headers: headers})
     .map(res => res.json());
   }
 
-  deleteTask(id: number) {
+  deleteUser(id: number) {
     return this.http.delete(
-      this.endpoint + '/task/' + id)
+      this.endpoint + '/user/' + id)
     .map(res => res.json());
   }
 
-  updateTask(task) {
+  updateUser(user) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return this.http.put(
-      this.endpoint + '/task/' + task._id,
-      JSON.stringify(task),
+      this.endpoint + '/user/' + user._id,
+      JSON.stringify(user),
       {headers: headers})
     .map(res => res.json());
   }

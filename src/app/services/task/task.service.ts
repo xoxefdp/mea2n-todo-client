@@ -2,9 +2,11 @@ import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
 
+import { environment } from '../../../environments/environment';
+
 @Injectable()
 export class TaskService {
-  endpoint = 'http://localhost:3000/api';
+  endpoint = environment.endpoint;
 
   constructor(private http: Http) {
     console.log('Task Service Initialized...');

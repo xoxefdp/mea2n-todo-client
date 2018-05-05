@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
-import { TaskService } from './../../../services/task.service';
-import { Task } from './../../../models/task';
+import { TaskService } from './../../../app/services/task/task.service';
+import { Task } from './../../../app/models/task';
 
 @Component({
   selector: 'app-tasks',
@@ -10,7 +10,7 @@ import { Task } from './../../../models/task';
   providers: [TaskService]
 })
 
-export class TasksComponent {
+export class TasksComponent implements OnInit {
 
   tasks: Task[];
   title: string;
@@ -24,12 +24,13 @@ export class TasksComponent {
     this.filteredTasks = [];
     this.pageSize = 3;
     this.q = '';
+  }
 
-    if ( this.tasks == null || this.tasks.length === 0 ) {
+  ngOnInit(): void {
+    if (this.tasks == null || this.tasks.length === 0) {
       this.getTasks();
     }
   }
-
 
   getTasks() {
     this.taskService.getTasks()
