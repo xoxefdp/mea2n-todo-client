@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+
+import { MatPaginator, MatTableDataSource } from '@angular/material';
 
 import { TaskService } from './../../../app/services/task/task.service';
 import { Task } from './../../../app/models/task';
@@ -14,20 +16,30 @@ export class TasksComponent implements OnInit {
 
   tasks: Task[];
   title: string;
-  currentPage: number;
+  search: string;
   pageSize: number;
-  q: string;
-  filteredTasks: Task[];
+  pageSizeOptions: number[];
+  displayedColumns: string[];
+  dataSource: MatTableDataSource<Task>;
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private taskService: TaskService) {
     this.tasks = [];
-    this.filteredTasks = [];
-    this.pageSize = 3;
-    this.q = '';
+    this.pageSize = 2;
+    this.pageSizeOptions = [this.pageSize, (2 * this.pageSize), (3 * this.pageSize)];
+
+    this.displayedColumns = ['done', 'task', 'action'];
+    this.setTable(this.tasks, this.paginator);
   }
 
   async ngOnInit() {
     this.getTasks();
+  }
+
+  private setTable(tasks, paginator) {
+    this.dataSource = new MatTableDataSource<Task>(tasks);
+    this.dataSource.paginator = paginator;
   }
 
   async getTasks() {
@@ -35,8 +47,7 @@ export class TasksComponent implements OnInit {
       await this.taskService.getTasks()
         .subscribe(tasks => {
           this.tasks = tasks;
-          this.filteredTasks = this.tasks;
-          this.currentPage = 1;
+          this.setTable(this.tasks, this.paginator);
         });
     } catch (error) {
       return error;
@@ -55,6 +66,7 @@ export class TasksComponent implements OnInit {
           .subscribe(task => {
             this.tasks.push(task);
             this.title = '';
+            this.setTable(this.tasks, this.paginator);
           });
       } catch (error) {
         return error;
@@ -69,6 +81,7 @@ export class TasksComponent implements OnInit {
           for (let i = 0; i < this.tasks.length; i++) {
             if (this.tasks[i]._id === id) {
               this.tasks.splice(i, 1);
+              this.setTable(this.tasks, this.paginator);
             }
           }
         });
@@ -90,7 +103,8 @@ export class TasksComponent implements OnInit {
           if (data.n === 1) {
             for (let i = 0; i < this.tasks.length; i++) {
               if (this.tasks[i]._id === updTask._id) {
-                return this.tasks[i] = updTask;
+                this.tasks[i] = updTask;
+                this.setTable(this.tasks, this.paginator);
               }
             }
           }
@@ -98,40 +112,10 @@ export class TasksComponent implements OnInit {
     } catch (error) {
       return error;
     }
-
-
   }
 
-  filterTask(): Task[] {
-    if (this.q) {
-      this.assignCopy();
-    }
-
-    this.currentPage = 1;
-
-    return this.filteredTasks = Object.assign([], this.tasks)
-    .filter( (task) => task.title.toLowerCase().indexOf(this.q.toLowerCase()) > -1);
-      // .filter( (task) => JSON.stringify(task).toLowerCase().indexOf(this.q.toLowerCase()) > -1)
-  }
-
-  private assignCopy(): Task[] {
-    return this.filteredTasks = Object.assign([], this.tasks);
-  }
-
-  numberOfPages(): number {
-    if (this.pageSize !== 0) {
-      return Math.ceil(this.filteredTasks.length / this.pageSize);
-    } else if (this.pageSize <= 0 || this.pageSize == null) {
-      return this.filteredTasks.length;
-    }
-  }
-
-  previousPage(): number {
-    return this.currentPage = this.currentPage - 1;
-  }
-
-  nextPage(): number {
-    return this.currentPage = this.currentPage + 1;
+  filterTask(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
 }

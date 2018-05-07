@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
-import 'rxjs/add/operator/map';
+import { map } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class TaskService {
   endpoint = environment.endpoint;
 
@@ -15,13 +17,17 @@ export class TaskService {
   getTasks() {
     return this.http.get(
       this.endpoint + '/tasks')
-    .map(res => res.json());
+      .pipe(
+        map( res => res.json() )
+      );
   }
 
   getTask(id: number) {
     return this.http.get(
       this.endpoint + '/task/' + id)
-    .map(res => res.json());
+      .pipe(
+        map(res => res.json())
+      );
   }
 
   addTask(newTask) {
@@ -31,13 +37,17 @@ export class TaskService {
       this.endpoint + '/task',
       JSON.stringify(newTask),
       {headers: headers})
-    .map(res => res.json());
+      .pipe(
+        map(res => res.json())
+      );
   }
 
   deleteTask(id: number) {
     return this.http.delete(
       this.endpoint + '/task/' + id)
-    .map(res => res.json());
+      .pipe(
+        map( res => res.json() )
+      );
   }
 
   updateTask(task) {
@@ -47,6 +57,8 @@ export class TaskService {
       this.endpoint + '/task/' + task._id,
       JSON.stringify(task),
       {headers: headers})
-    .map(res => res.json());
+      .pipe(
+        map( res => res.json() )
+      );
   }
 }
