@@ -1,6 +1,6 @@
 {
   "name": "client-todo",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Client app for TODO list made with the MEAN stack",
   "keywords": [
     "angular"
