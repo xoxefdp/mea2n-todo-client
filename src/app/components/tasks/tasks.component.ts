@@ -33,7 +33,7 @@ export class TasksComponent implements OnInit {
     this.setTable(this.tasks, this.paginator);
   }
 
-  async ngOnInit() {
+  ngOnInit() {
     this.getTasks();
   }
 
@@ -42,9 +42,9 @@ export class TasksComponent implements OnInit {
     this.dataSource.paginator = paginator;
   }
 
-  async getTasks() {
+  getTasks() {
     try {
-      await this.taskService.getTasks()
+      this.taskService.getTasks()
         .subscribe(tasks => {
           this.tasks = tasks;
           this.setTable(this.tasks, this.paginator);
@@ -54,7 +54,7 @@ export class TasksComponent implements OnInit {
     }
   }
 
-  async addTask(ev) {
+  addTask(ev) {
     if (ev.keyCode === 13 && this.title !== '') {
       const newTask = {
         title: this.title,
@@ -62,7 +62,7 @@ export class TasksComponent implements OnInit {
       }
 
       try {
-        await this.taskService.addTask(newTask)
+        this.taskService.addTask(newTask)
           .subscribe(task => {
             this.tasks.push(task);
             this.title = '';
@@ -74,9 +74,9 @@ export class TasksComponent implements OnInit {
     }
   }
 
-  async deleteTask(id: number) {
+  deleteTask(id: number) {
     try {
-      await this.taskService.deleteTask(id)
+      this.taskService.deleteTask(id)
         .subscribe(() => {
           for (let i = 0; i < this.tasks.length; i++) {
             if (this.tasks[i]._id === id) {
@@ -90,20 +90,16 @@ export class TasksComponent implements OnInit {
     }
   }
 
-  async updateTask(task) {
-    const updTask = {
-      _id: task._id,
-      title: task.title,
-      isDone: task.isDone
-    };
+  updateTask(task, ev) {
+    task.isDone = ev.checked;
 
     try {
-      await this.taskService.updateTask(updTask)
+      this.taskService.updateTask(task)
         .subscribe(data => {
           if (data.n === 1) {
             for (let i = 0; i < this.tasks.length; i++) {
-              if (this.tasks[i]._id === updTask._id) {
-                this.tasks[i] = updTask;
+              if (this.tasks[i]._id === task._id) {
+                this.tasks[i] = task;
                 this.setTable(this.tasks, this.paginator);
               }
             }
