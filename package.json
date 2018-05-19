@@ -3,19 +3,23 @@
   "version": "1.0.0",
   "description": "Client app for TODO list made with the MEAN stack",
   "keywords": [
-    "angular"
+    "angular",
+    "material"
   ],
+  "private": true,
+  "author": "José Diaz <xoxefdp@gmail.com> (https://github.com/xoxefdp)",
   "license": "MIT",
+  "homepage": "https://github.com/xoxefdp/mea2n-todo-client",
   "scripts": {
     "ng": "ng",
-    "dev": "ng serve --configuration=dev",
-    "prod": "ng serve --configuration=prod --prod",
-    "build": "ng build",
+    "start:dev": "ng serve --configuration=dev",
+    "start:prod": "ng serve --configuration=prod --prod",
+    "build:dev": "ng build --configuration=dev",
+    "build:prod": "ng build --configuration=prod --prod",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
-  "private": true,
   "dependencies": {
     "@angular/animations": "^6.0.0",
     "@angular/cdk": "^6.0.0",
