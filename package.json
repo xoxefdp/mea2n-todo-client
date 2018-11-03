@@ -16,6 +16,7 @@
     "start:prod": "ng serve --configuration=prod --prod",
     "build:dev": "ng build --configuration=dev",
     "build:prod": "ng build --configuration=prod --prod",
+    "update": "ng update --all",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

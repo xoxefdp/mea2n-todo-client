@@ -7,11 +7,13 @@
 </mat-form-field>
 
 <mat-form-field>
-  <input matInput [(ngModel)]="title" (keyup)="addTask($event)" placeholder="Type text to add..."/>
+  <input matInput [(ngModel)]="title" (keyup)="addTaskEvent($event)" placeholder="Type text to add..."/>
   <button mat-button *ngIf="title" matSuffix mat-icon-button aria-label="Clear" (click)="title=''">
     <mat-icon>close</mat-icon>
   </button>
-  <mat-icon matSuffix>playlist_add</mat-icon>
+  <button mat-button [disabled]="!title" matSuffix mat-icon-button aria-label="Add Task" (tap)="addTaskTap()">
+    <mat-icon matSuffix>playlist_add</mat-icon>
+  </button>
 </mat-form-field>
 
 <table mat-table #table [dataSource]="dataSource">
@@ -31,6 +33,7 @@
       <button mat-raised-button color="warn" (click)="deleteTask(task._id)">Delete</button>
     </td>
   </ng-container>
+
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>

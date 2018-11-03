@@ -54,7 +54,7 @@ export class TasksComponent implements OnInit {
     }
   }
 
-  addTask(ev) {
+  addTaskEvent(ev) {
     if (ev.keyCode === 13 && this.title !== '') {
       const newTask = {
         title: this.title,
@@ -69,6 +69,27 @@ export class TasksComponent implements OnInit {
             this.setTable(this.tasks, this.paginator);
           });
       } catch (error) {
+        return error;
+      }
+    }
+  }
+
+  addTaskTap() {
+    if (this.title !== '') {
+      const newTask = {
+        title: this.title,
+        isDone: false
+      }
+
+      try {
+        this.taskService.addTask(newTask)
+          .subscribe(task => {
+            this.tasks.push(task);
+            this.title = '';
+            this.setTable(this.tasks, this.paginator);
+          });
+      } catch (error) {
+        console.log(error);
         return error;
       }
     }

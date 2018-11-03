@@ -12,7 +12,6 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
 
-
 import { AppComponent } from './app.component';
 import { TasksComponent } from './components/tasks/tasks.component';
 
