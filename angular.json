@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "client-todo": {
+    "todo-client": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -11,9 +11,12 @@
       "schematics": {},
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-builders/custom-webpack:browser",
           "options": {
-            "outputPath": "dist/client-todo",
+            "customWebpackConfig": {
+              "path": "custom-webpack.config.js"
+            },
+            "outputPath": "dist/todo-client",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -64,28 +67,34 @@
           }
         },
         "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
+          "builder": "@angular-builders/custom-webpack:dev-server",
           "options": {
-            "browserTarget": "client-todo:build"
+            "customWebpackConfig": {
+              "path": "custom-webpack.config.js"
+            },
+            "browserTarget": "todo-client:build"
           },
           "configurations": {
             "dev": {
-              "browserTarget": "client-todo:build:dev"
+              "browserTarget": "todo-client:build:dev"
             },
             "production": {
-              "browserTarget": "client-todo:build:production"
+              "browserTarget": "todo-client:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "client-todo:build"
+            "browserTarget": "todo-client:build"
           }
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@angular-builders/custom-webpack:karma",
           "options": {
+            "customWebpackConfig": {
+              "path": "custom-webpack.config.js"
+            },
             "main": "src/test.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.spec.json",
@@ -114,7 +123,7 @@
         }
       }
     },
-    "client-todo-e2e": {
+    "todo-client-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "prefix": "",
@@ -123,14 +132,14 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "client-todo:serve"
+            "devServerTarget": "todo-client:serve"
           },
           "configurations": {
             "dev": {
-              "devServerTarget": "client-todo:serve:dev"
+              "devServerTarget": "todo-client:serve:dev"
             },
             "production": {
-              "devServerTarget": "client-todo:serve:production"
+              "devServerTarget": "todo-client:serve:production"
             }
           }
         },
@@ -146,5 +155,5 @@
       }
     }
   },
-  "defaultProject": "client-todo"
+  "defaultProject": "todo-client"
 }

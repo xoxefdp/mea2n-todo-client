@@ -1,5 +1,5 @@
 <mat-form-field>
-  <input matInput [(ngModel)]="search" (keyup)="filterTask($event.target.value)" placeholder="Type to filter..."/>
+  <input matInput [(ngModel)]="search" (keyup)="filterTask($event.target.value)" placeholder="Type to filter..." />
   <button mat-button *ngIf="search" matSuffix mat-icon-button aria-label="Clear" (click)="search=''">
     <mat-icon>close</mat-icon>
   </button>
@@ -7,7 +7,7 @@
 </mat-form-field>
 
 <mat-form-field>
-  <input matInput [(ngModel)]="title" (keyup)="addTaskEvent($event)" placeholder="Type text to add..."/>
+  <input matInput [(ngModel)]="title" (keyup)="addTaskEvent($event)" placeholder="Type text to add..." />
   <button mat-button *ngIf="title" matSuffix mat-icon-button aria-label="Clear" (click)="title=''">
     <mat-icon>close</mat-icon>
   </button>
@@ -17,16 +17,19 @@
 </mat-form-field>
 
 <table mat-table #table [dataSource]="dataSource">
+  <!-- column DONE -->
   <ng-container matColumnDef="done">
     <th mat-header-cell *matHeaderCellDef> DONE </th>
     <td mat-cell *matCellDef="let task">
-      <mat-checkbox [checked]="task.isDone"  (change)="updateTask(task, $event)"></mat-checkbox>
+      <mat-checkbox [checked]="task.isDone" (change)="updateTask(task, $event)"></mat-checkbox>
     </td>
   </ng-container>
+  <!-- column TASK -->
   <ng-container matColumnDef="task">
     <th mat-header-cell *matHeaderCellDef> TASK </th>
     <td mat-cell *matCellDef="let task"> {{task.title}} </td>
   </ng-container>
+  <!-- column ACTION -->
   <ng-container matColumnDef="action">
     <th mat-header-cell *matHeaderCellDef> ACTION </th>
     <td mat-cell *matCellDef="let task">
@@ -35,7 +38,7 @@
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
 </table>
 
 <mat-paginator #paginator [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" [showFirstLastButtons]="true">

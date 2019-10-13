@@ -1,9 +1,4 @@
-<table class="table table-bordered">
-  <thead class="thead-inverse">
-  	<tr>
-      <th>{{title}}</th>
-			<input type="hidden" [(ngModel)]="title">
-    </tr>
-  </thead>
-</table>
-<app-tasks></app-tasks>
+<mat-toolbar>
+  {{title}}
+</mat-toolbar>
+<router-outlet></router-outlet>

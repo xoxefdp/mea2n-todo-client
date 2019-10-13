@@ -1,5 +1,5 @@
 export class Task {
-  _id: number;
-  title: string;
-  isDone: boolean;
+  _id: number
+  title: string
+  isDone: boolean
 }
