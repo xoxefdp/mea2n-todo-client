@@ -1,4 +1,6 @@
 export const environment = {
   production: true,
-  endpoint: SERVER_URL + ':' + SERVER_PORT + '/api'
+  endpoint: $SERVER.URL + ':' + $SERVER.PORT + '/api',
+  app_name: $APP.NAME,
+  app_version: $APP.VERSION,
 };

@@ -10,6 +10,7 @@ COPY . /workdir
 
 # Install dependecies
 RUN npm install --loglevel silly
+    # \ && cp .env.example .env
 
 # Expose the port the app runs in
 EXPOSE 4200
@@ -18,4 +19,4 @@ EXPOSE 4200
 ENTRYPOINT [ "npm", "run" ]
 
 # Serve the app
-CMD [ "start:dev" ]
+CMD [ "server:development" ]

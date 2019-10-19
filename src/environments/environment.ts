@@ -4,7 +4,9 @@
 
 export const environment = {
   production: false,
-  endpoint: ''
+  endpoint: '',
+  app_name: '',
+  app_version: ''
 };
 
 /*
