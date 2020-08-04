@@ -1,0 +1,7 @@
+{
+    "/api/*": {
+       "target": "http://$SERVER_URL:$SERVER_PORT/api/",
+       "secure": false,
+       "logLevel": "debug"
+    }
+ }

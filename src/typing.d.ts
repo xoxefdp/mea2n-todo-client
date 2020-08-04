@@ -8,5 +8,5 @@ interface APP {
 
 interface SERVER {
     URL: string;
-    PORT: string;
+    PORT: number;
 }

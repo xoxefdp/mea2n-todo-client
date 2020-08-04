@@ -69,7 +69,8 @@
         "serve": {
           "builder": "@angular-builders/dev-server:generic",
           "options": {
-            "browserTarget": "todo-client:build"
+            "browserTarget": "todo-client:build",
+            "proxyConfig": "proxy.conf.json"
           },
           "configurations": {
             "development": {
